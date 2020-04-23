@@ -1,62 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, StatusBar} from 'react-native';
-import {Subscription, Location} from 'react-native-location';
-import MapView, {Region} from 'react-native-maps';
+import 'react-native-gesture-handler';
 
-import {requestPermission, onCurrentLocationUpdate} from '~/libs/location';
+import React from 'react';
+import {StatusBar} from 'react-native';
 
-const styles = StyleSheet.create({
-  map: {
-    flex: 1,
-  },
-});
+import {NavigationContainer} from '@react-navigation/native';
+
+import Routes from '~/routes';
 
 const App: React.FC = () => {
-  const [currentLocation, setCurrentLocation] = useState<Region>({
-    longitude: -6.966605,
-    latitude: -35.7968537,
-    longitudeDelta: 0.01,
-    latitudeDelta: 0.01,
-  });
-
-  useEffect(() => {
-    let unsubscribe: Subscription;
-
-    requestPermission({
-      android: {
-        detail: 'fine',
-      },
-    }).then((granted: boolean) => {
-      if (granted) {
-        unsubscribe = onCurrentLocationUpdate((locations: Location[]) => {
-          const {longitude, latitude} = locations[0];
-
-          setCurrentLocation({
-            longitude,
-            latitude,
-            longitudeDelta: 0.02,
-            latitudeDelta: 0.02,
-          });
-        });
-      }
-    });
-
-    return () => {
-      if (unsubscribe) {
-        unsubscribe();
-      }
-    };
-  }, []);
-
   return (
-    <>
+    <NavigationContainer>
       <StatusBar
         backgroundColor="rgba(255, 255, 255, 0.5)"
         barStyle="dark-content"
+        translucent
       />
-
-      <MapView style={styles.map} initialRegion={currentLocation} />
-    </>
+      <Routes />
+    </NavigationContainer>
   );
 };
 
