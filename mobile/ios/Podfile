@@ -44,8 +44,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'HopeTrackers' do
-  # Pods for HopeTrackers
+target 'hopetrackers' do
+  # Pods for hopetrackers
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -77,7 +77,7 @@ target 'HopeTrackers' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'HopeTrackersTests' do
+  target 'hopetrackersTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -94,10 +94,10 @@ target 'HopeTrackers' do
   end
 end
 
-target 'HopeTrackers-tvOS' do
-  # Pods for HopeTrackers-tvOS
+target 'hopetrackers-tvOS' do
+  # Pods for hopetrackers-tvOS
 
-  target 'HopeTrackers-tvOSTests' do
+  target 'hopetrackers-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
