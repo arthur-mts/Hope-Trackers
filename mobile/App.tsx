@@ -1,8 +1,11 @@
+import 'react-native-gesture-handler';
+
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, StatusBar} from 'react-native';
 import {Subscription, Location} from 'react-native-location';
 import MapView, {Region} from 'react-native-maps';
 
+import {FloatingButton} from '~/components/Buttons';
 import {requestPermission, onCurrentLocationUpdate} from '~/libs/location';
 
 const styles = StyleSheet.create({
@@ -53,9 +56,19 @@ const App: React.FC = () => {
       <StatusBar
         backgroundColor="rgba(255, 255, 255, 0.5)"
         barStyle="dark-content"
+        translucent
       />
 
       <MapView style={styles.map} initialRegion={currentLocation} />
+
+      <FloatingButton
+        position="BOTTOM_RIGHT"
+        backgroundColor="#333"
+        rippleColor="#FFF"
+        iconColor="#FFF"
+        iconSize={20}
+        icon="gps-fixed"
+      />
     </>
   );
 };
