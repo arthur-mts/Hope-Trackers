@@ -1,0 +1,113 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.hopetrackers"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="28" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/debug/AndroidManifest.xml:5:5-77
+11-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/debug/AndroidManifest.xml:5:22-75
+12    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+12-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:4:5-79
+12-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:4:22-76
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:5:5-67
+13-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:5:22-64
+14    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+14-->[com.facebook.flipper:flipper:0.33.1] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/429f8d542e2cb6c24cea99f41434cfbb/jetified-flipper-0.33.1/AndroidManifest.xml:16:5-76
+14-->[com.facebook.flipper:flipper:0.33.1] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/429f8d542e2cb6c24cea99f41434cfbb/jetified-flipper-0.33.1/AndroidManifest.xml:16:22-73
+15    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Include required permissions for Google Maps API to run. -->
+15-->[:react-native-maps] /home/jabiracador/Projects/Hope-Trackers/mobile/node_modules/react-native-maps/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-81
+15-->[:react-native-maps] /home/jabiracador/Projects/Hope-Trackers/mobile/node_modules/react-native-maps/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:22-78
+16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+16-->[com.google.android.gms:play-services-maps:16.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/74d04c3701002e0acecce925bb88ecb2/jetified-play-services-maps-16.1.0/AndroidManifest.xml:23:5-79
+16-->[com.google.android.gms:play-services-maps:16.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/74d04c3701002e0acecce925bb88ecb2/jetified-play-services-maps-16.1.0/AndroidManifest.xml:23:22-76
+17
+18    <uses-feature
+18-->[com.google.android.gms:play-services-maps:16.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/74d04c3701002e0acecce925bb88ecb2/jetified-play-services-maps-16.1.0/AndroidManifest.xml:26:5-28:35
+19        android:glEsVersion="0x00020000"
+19-->[com.google.android.gms:play-services-maps:16.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/74d04c3701002e0acecce925bb88ecb2/jetified-play-services-maps-16.1.0/AndroidManifest.xml:27:9-41
+20        android:required="true" />
+20-->[com.google.android.gms:play-services-maps:16.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/74d04c3701002e0acecce925bb88ecb2/jetified-play-services-maps-16.1.0/AndroidManifest.xml:28:9-32
+21
+22    <application
+22-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:7:5-32:19
+23        android:name="com.hopetrackers.MainApplication"
+23-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:8:7-38
+24        android:allowBackup="false"
+24-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:12:7-34
+25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+25-->[androidx.core:core:1.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/4f509a65121478d6153615d7ef5b7c5f/core-1.1.0/AndroidManifest.xml:24:18-86
+26        android:debuggable="true"
+27        android:icon="@mipmap/ic_launcher"
+27-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:10:7-41
+28        android:label="@string/app_name"
+28-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:9:7-39
+29        android:roundIcon="@mipmap/ic_launcher_round"
+29-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:11:7-52
+30        android:theme="@style/AppTheme"
+30-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:13:7-38
+31        android:usesCleartextTraffic="true" >
+31-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/debug/AndroidManifest.xml:7:18-53
+32        <activity
+32-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:14:7-24:18
+33            android:name="com.hopetrackers.MainActivity"
+33-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:15:9-37
+34            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+34-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:17:9-86
+35            android:label="@string/app_name"
+35-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:16:9-41
+36            android:launchMode="singleTask"
+36-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:18:9-40
+37            android:windowSoftInputMode="adjustResize" >
+37-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:19:9-51
+38            <intent-filter>
+38-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:20:9-23:25
+39                <action android:name="android.intent.action.MAIN" />
+39-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:21:13-65
+39-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:21:21-62
+40
+41                <category android:name="android.intent.category.LAUNCHER" />
+41-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:22:13-73
+41-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:22:23-70
+42            </intent-filter>
+43        </activity>
+44        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+44-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:25:7-84
+44-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:25:17-81
+45
+46        <meta-data
+46-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:27:7-29:67
+47            android:name="com.google.android.geo.API_KEY"
+47-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:28:9-54
+48            android:value="AIzaSyAtRCCr4cLZA2hmjBALXIFNp-aD2C7FHvg" /> <!-- Needs to be explicitly declared on P+ -->
+48-->/home/jabiracador/Projects/Hope-Trackers/mobile/android/app/src/main/AndroidManifest.xml:29:9-64
+49        <uses-library
+49-->[com.google.android.gms:play-services-maps:16.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/74d04c3701002e0acecce925bb88ecb2/jetified-play-services-maps-16.1.0/AndroidManifest.xml:33:9-35:40
+50            android:name="org.apache.http.legacy"
+50-->[com.google.android.gms:play-services-maps:16.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/74d04c3701002e0acecce925bb88ecb2/jetified-play-services-maps-16.1.0/AndroidManifest.xml:34:13-50
+51            android:required="false" />
+51-->[com.google.android.gms:play-services-maps:16.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/74d04c3701002e0acecce925bb88ecb2/jetified-play-services-maps-16.1.0/AndroidManifest.xml:35:13-37
+52
+53        <activity
+53-->[com.google.android.gms:play-services-base:16.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/dace3cc6ddb5248705ce59faf79e9798/jetified-play-services-base-16.1.0/AndroidManifest.xml:23:9-26:75
+54            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+54-->[com.google.android.gms:play-services-base:16.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/dace3cc6ddb5248705ce59faf79e9798/jetified-play-services-base-16.1.0/AndroidManifest.xml:24:13-79
+55            android:exported="false"
+55-->[com.google.android.gms:play-services-base:16.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/dace3cc6ddb5248705ce59faf79e9798/jetified-play-services-base-16.1.0/AndroidManifest.xml:25:13-37
+56            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+56-->[com.google.android.gms:play-services-base:16.1.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/dace3cc6ddb5248705ce59faf79e9798/jetified-play-services-base-16.1.0/AndroidManifest.xml:26:13-72
+57
+58        <meta-data
+58-->[com.google.android.gms:play-services-basement:16.2.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/28422fb9a0a173c6c843b1ef2c8fe145/jetified-play-services-basement-16.2.0/AndroidManifest.xml:23:9-25:69
+59            android:name="com.google.android.gms.version"
+59-->[com.google.android.gms:play-services-basement:16.2.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/28422fb9a0a173c6c843b1ef2c8fe145/jetified-play-services-basement-16.2.0/AndroidManifest.xml:24:13-58
+60            android:value="@integer/google_play_services_version" />
+60-->[com.google.android.gms:play-services-basement:16.2.0] /home/jabiracador/.gradle/caches/transforms-2/files-2.1/28422fb9a0a173c6c843b1ef2c8fe145/jetified-play-services-basement-16.2.0/AndroidManifest.xml:25:13-66
+61    </application>
+62
+63</manifest>

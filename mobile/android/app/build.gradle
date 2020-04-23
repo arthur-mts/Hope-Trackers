@@ -194,6 +194,10 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
+    // react-native-location
+    implementation "com.google.android.gms:play-services-base:16.0.1"
+    implementation "com.google.android.gms:play-services-location:16.0.0"
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }
@@ -222,4 +226,9 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
+project.ext.vectoricons = [
+    iconFontNames: [ 'MaterizalIcons.ttf' ]
+]
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

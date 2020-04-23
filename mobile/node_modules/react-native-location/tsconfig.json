@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "jsx": "react",
+    "sourceMap": true,
+    "declaration": true,
+    "strict": true,
+    "outDir": "./dist",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "lib": ["es2015", "es2016", "esnext"],
+    "types": ["react", "react-native"],
+  }
+}
