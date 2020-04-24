@@ -5,6 +5,7 @@ const CompanyScheema: mongoose.Schema = new mongoose.Schema({
     name: { type: String, required: true },
     cnpj: { type: String, required: true },
     description: { type: String, required: true },
+    phoneNumber: { type: String, required: true },
     location: {
         type: Point,
         index: "2dsphere"
@@ -12,3 +13,5 @@ const CompanyScheema: mongoose.Schema = new mongoose.Schema({
     category: String,
     schedule: String
 })
+
+export const Company = mongoose.model("Company", CompanyScheema);

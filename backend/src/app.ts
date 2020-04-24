@@ -1,16 +1,24 @@
 import express, { Application } from 'express';
 import mongoose from 'mongoose'
 
+import UserController from './controllers/UserController'
+import router from './routes'
+
 class App {
     public app: Application;
 
     constructor() {
         this.app = express();
-        this.app.listen(8000);
+        this.setConfig();
         this.setMongoConfig();
-        this.app.get('/', (req, res) => {
-            res.send('mesage')
-        })
+        this.setRoutes();
+        this.app.listen(8000);
+
+    }
+
+    private setRoutes() {
+        console.log('gere')
+        this.app.use('/', router)
     }
 
     private setMongoConfig() {
@@ -19,6 +27,10 @@ class App {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
+    }
+
+    private setConfig() {
+        this.app.use(express.json())
     }
 }
 
