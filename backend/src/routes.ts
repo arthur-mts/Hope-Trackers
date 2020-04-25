@@ -1,7 +1,7 @@
 import express from 'express';
 import UserController from './controllers/UserController';
 import CompanyController from './controllers/CompanyController';
-import {SearchController} from './controllers/SearchController';
+import { SearchController } from './controllers/SearchController';
 
 const router = express.Router();
 
