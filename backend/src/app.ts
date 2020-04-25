@@ -1,36 +1,33 @@
-import express, { Application } from 'express';
-import mongoose from 'mongoose'
+import express, {Application} from 'express';
+import mongoose from 'mongoose';
 
-import UserController from './controllers/UserController'
-import router from './routes'
+import router from './routes';
 
 class App {
     public app: Application;
-
     constructor() {
         this.app = express();
         this.setConfig();
         this.setMongoConfig();
         this.setRoutes();
         this.app.listen(8000);
-
     }
 
     private setRoutes() {
-        console.log('gere')
-        this.app.use('/', router)
+        console.log('gere');
+        this.app.use('/', router);
     }
 
     private setMongoConfig() {
         mongoose.Promise = global.Promise;
-        mongoose.connect("mongodb://localhost:27017/HopeTrackers", {
+        mongoose.connect('mongodb://localhost:27017/HopeTrackers', {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
         });
     }
 
     private setConfig() {
-        this.app.use(express.json())
+        this.app.use(express.json());
     }
 }
 
