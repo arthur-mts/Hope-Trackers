@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import PointSchema from './util/point';
-
+import mongoosePaginate from 'mongoose-paginate';
 const CompanyScheema: mongoose.Schema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -13,7 +13,7 @@ const CompanyScheema: mongoose.Schema = new mongoose.Schema(
     },
     category: String,
     schedule: String,
-    thunbnail: String,
+    thumbnail: String,
   },
   {
     toJSON: {
@@ -22,8 +22,10 @@ const CompanyScheema: mongoose.Schema = new mongoose.Schema(
   },
 );
 
-CompanyScheema.virtual('thunbnail_url').get(function (this: { thunbnail: String }) {
-  return `https://localhost:8000/files/${this.thunbnail}`;
+CompanyScheema.plugin(mongoosePaginate);
+
+CompanyScheema.virtual('thunbnail_url').get(function (this: { thumbnail: String }) {
+  return `https://localhost:8000/files/${this.thumbnail}`;
 });
 
 export const Company = mongoose.model('Company', CompanyScheema);

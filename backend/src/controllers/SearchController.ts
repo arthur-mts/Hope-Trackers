@@ -1,39 +1,52 @@
-import {Response, Request} from 'express';
-import {Company} from '../models/company';
+import { Response, Request } from 'express';
+import { Company } from '../models/company';
 
 export class SearchController {
-    public static async index(req: Request, res: Response) {
-        console.log(req.query);
-        const {latitude, longitude, category} = req.query;
-        console.log(category);
-        let companiesArray;
-        if (category) {
-            companiesArray = await Company.find({
-                category,
-                location: {
-                    $near: {
-                        $geometry: {
-                            type: 'Point',
-                            coordinates: [longitude, latitude],
-                        },
-                        $maxDistance: 5000,
-                    },
-                },
-            });
-        } else {
-            companiesArray = await Company.find({
-                location: {
-                    $near: {
-                        $geometry: {
-                            type: 'Point',
-                            coordinates: [longitude, latitude],
-                        },
-                        $maxDistance: 5000,
-                    },
-                },
-            });
-        }
-
-        return res.json(companiesArray);
+  public static async index(req: Request, res: Response) {
+    const { latitude, longitude, category } = req.query;
+    let { page = 0, limit = 10 } = req.query;
+    page = Number(page);
+    limit = Number(limit);
+    let companiesArray;
+    if (category) {
+      companiesArray = await Company.paginate(
+        {
+          category,
+          location: {
+            $near: {
+              $geometry: {
+                type: 'Point',
+                coordinates: [longitude, latitude],
+              },
+              $maxDistance: 5000,
+            },
+          },
+        },
+        {
+          page,
+          limit,
+        },
+      );
+    } else {
+      companiesArray = await Company.paginate(
+        {
+          location: {
+            $near: {
+              $geometry: {
+                type: 'Point',
+                coordinates: [longitude, latitude],
+              },
+              $maxDistance: 5000,
+            },
+          },
+        },
+        {
+          page,
+          limit,
+        },
+      );
     }
+
+    return res.json(companiesArray);
+  }
 }
