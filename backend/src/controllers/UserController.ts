@@ -20,4 +20,15 @@ export default class UserController {
       return res.json(user);
     }
   }
+
+  public static async update(req: Request, res: Response) {
+    const { name } = req.body;
+    const _id = req.body.user_id;
+    console.log(_id);
+
+    const user = await User.findOneAndUpdate({ _id }, { name: name });
+
+    if (user) return res.json(await User.findOne({ _id }));
+    else return res.status(404).send({ message: 'User not found' });
+  }
 }

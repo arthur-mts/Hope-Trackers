@@ -1,7 +1,9 @@
-import express, { Application } from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import router from './routes';
 import path from 'path';
+import dotenv from 'dotenv';
+
 class App {
   public app: Application;
   constructor() {
@@ -25,6 +27,7 @@ class App {
   }
 
   private setConfig() {
+    dotenv.config();
     this.app.use(express.json());
     this.app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
   }
