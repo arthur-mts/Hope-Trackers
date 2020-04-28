@@ -20,17 +20,17 @@ export const Wrapper = styled.View<WrapperProps>`
       case 'BOTTOM_CENTER':
         return css`
           align-items: center;
-          bottom: 72px;
+          bottom: 16px;
         `;
       case 'BOTTOM_LEFT':
         return css`
           align-items: flex-start;
-          bottom: 72px;
+          bottom: 16px;
         `;
       case 'BOTTOM_RIGHT':
         return css`
           align-items: flex-end;
-          bottom: 72px;
+          bottom: 16px;
         `;
       case 'TOP_CENTER':
         return css`
