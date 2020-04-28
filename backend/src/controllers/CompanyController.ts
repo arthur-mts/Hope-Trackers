@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { Company } from '../models/company';
-import { cnpj as cnpjUtil } from 'cpf-cnpj-validator';
+import { cnpj as cnpjUtil , cpf as cpfUtil} from 'cpf-cnpj-validator';
 import fs, { PathLike } from 'fs';
 
-export default class CompanyController {
-  private static removeFile(filename: PathLike) {
+class CompanyController {
+  private  removeFile(filename: PathLike) {
     fs.unlink(filename, (err) => {
       if (err) {
         console.log(err);
@@ -14,13 +14,19 @@ export default class CompanyController {
     });
   }
 
-  public static async store(req: Request, res: Response) {
+  public  async store(req: Request, res: Response) {
     const { filename } = req.file;
-    const { name, cnpj, latitude, longitude, description, phoneNumber, category } = req.body;
-    if (!cnpjUtil.isValid(cnpj, false)) {
-      CompanyController.removeFile(req.file.path);
-      return res.status(400).send({ mesage: 'Invalid CNPJ' });
-    }
+    const { name, cpf, cnpj, latitude, longitude, description, phoneNumber, category } = req.body;
+    let register: String;
+
+    if(cpf && cpfUtil.isValid(cpf, true)) 
+      register = cpf;
+
+    else if(cnpj && cnpjUtil.isValid(cnpj, true))
+      register = cnpj;
+  
+    else
+      return res.status(400).send({message: 'CPF ou CNPJ não encontrados'})
 
     const location = {
       type: 'Point',
@@ -32,13 +38,13 @@ export default class CompanyController {
     });
 
     if (company) {
-      CompanyController.removeFile(req.file.path);
+      this.removeFile(req.file.path);
       return res.status(400).send({ mesage: 'Company alredy exists' });
     } else {
       company = await Company.create({
         name,
         thumbnail: filename,
-        cnpj,
+        register,
         description,
         phoneNumber,
         location,
@@ -47,4 +53,11 @@ export default class CompanyController {
       return res.json(company);
     }
   }
+  public async update(req: Request, res: Response){
+    const {name, description } = req.body
+    // TODO
+  }
+  
 }
+
+export default new CompanyController()

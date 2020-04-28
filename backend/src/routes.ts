@@ -9,20 +9,22 @@ import FavoriteController from './controllers/FavoriteController';
 
 const router = express.Router();
 
+router.post('/companies', upload.single('thumbnail'), CompanyController.store);
+
+router.post('/users', UserController.store);
+
 router.post('/sessions', SessionConotrller.store);
 
 router.get('/companies', SearchController.index);
 
 router.use(auth);
 
-router.post('/users', UserController.store);
-
 router.put('/users', UserController.update);
-
-router.post('/companies', upload.single('thumbnail'), CompanyController.store);
 
 router.post('/favorites', FavoriteController.store);
 
 router.get('/favorites', FavoriteController.index);
+
+router.delete('/favorites', FavoriteController.remove);
 
 export default router;

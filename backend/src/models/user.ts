@@ -1,6 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose, {Document} from 'mongoose';
+import {ICompanySchema }from './company';
 
-const UserSchema: mongoose.Schema = new mongoose.Schema({
+export interface IUserSchema extends Document {
+  name: String;
+  phoneNumber: String;
+  cpf: String;
+  favorites: [ICompanySchema];
+}
+
+export const UserSchema: mongoose.Schema = new mongoose.Schema({
   name: String,
   phoneNumber: String,
   cpf: String,
@@ -12,4 +20,4 @@ const UserSchema: mongoose.Schema = new mongoose.Schema({
   ],
 });
 
-export const User = mongoose.model('User', UserSchema);
+export const User = mongoose.model<IUserSchema>('User', UserSchema);

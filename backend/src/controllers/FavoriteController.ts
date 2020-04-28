@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { Company } from '../models/company';
-import { User } from '../models/user';
+import { User} from '../models/user';
 
-export default class FavoriteController {
-  public static async store(req: Request, res: Response) {
+class FavoriteController {
+  public  async store(req: Request, res: Response) {
     const { companyId } = req.body;
     const _id = req.body.user_id;
 
@@ -17,9 +17,27 @@ export default class FavoriteController {
     return res.json(user);
   }
 
-  public static async index(req: Request, res: Response) {
+  public  async index(req: Request, res: Response) {
     const _id = req.body.user_id;
     const user = await User.findOne({ _id }).populate('favorites');
     return res.json(user);
   }
-}
+
+
+  public async remove(req: Request, res: Response) {
+    const id = req.body.user_id;
+    const _id = req.body.id;
+    
+    const user = await User.findOne({_id : id})
+
+    const queryInfo = await user?.update({$pull : {favorites: _id}});
+
+    if(!queryInfo.nModified)
+      return res.status(400).send({message: "Company not found"});
+    
+      
+    return res.status(200).send();
+    }
+  }
+
+export default new FavoriteController();
