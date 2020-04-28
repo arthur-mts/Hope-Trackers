@@ -4,7 +4,7 @@ Location.configure({
   distanceFilter: 5,
   desiredAccuracy: {
     ios: 'best',
-    android: 'balancedPowerAccuracy',
+    android: 'highAccuracy',
   },
 });
 

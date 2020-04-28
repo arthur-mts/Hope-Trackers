@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {RectButtonProperties} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -10,10 +9,6 @@ interface Props extends ContainerProps, WrapperProps, RectButtonProperties {
   iconColor: string;
   iconSize?: number;
 }
-
-const styles = StyleSheet.create({
-  elevated: {elevation: 8},
-});
 
 const Floating: React.FC<Props> = ({
   backgroundColor,
@@ -26,7 +21,7 @@ const Floating: React.FC<Props> = ({
 }) => {
   return (
     <Wrapper {...{position}}>
-      <Container {...{size, backgroundColor, ...rest}} style={styles.elevated}>
+      <Container {...{size, backgroundColor, ...rest}}>
         <Icon {...{name, color}} size={iconSize} />
       </Container>
     </Wrapper>
