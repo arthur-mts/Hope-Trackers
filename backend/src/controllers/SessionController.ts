@@ -3,8 +3,8 @@ import { User } from '../models/user';
 import jwt from 'jsonwebtoken';
 import secret from '../config/auth';
 
-export class SessionConotrller {
-  public static async store(req: Request, res: Response) {
+class SessionConotrller {
+  public async store(req: Request, res: Response) {
     const { phoneNumber } = req.body;
     console.log(process.env.JWT_SECRET);
     const user = await User.findOne({ phoneNumber: phoneNumber });
@@ -15,3 +15,5 @@ export class SessionConotrller {
     return res.json({ user, token });
   }
 }
+
+export default new SessionConotrller()

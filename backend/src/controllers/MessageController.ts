@@ -1,4 +1,5 @@
 import {Request, Response} from "express";
+import mongoose from 'mongoose';
 import {User} from "../models/user";
 import Chat from "../models/chat";
 import Message from "../models/message";
@@ -8,11 +9,12 @@ class MessageController {
 
   public async store(req: Request, res: Response){
     const emitter = req.body.user_id;
-    const {reciver} = req.body;
+    const destiny = mongoose.Types.ObjectId(req.params.destiny);
 
     const {content} = req.body;
+    console.log(destiny)
     
-    if(!await User.findOne({_id: reciver})) 
+    if(!await User.findOne({_id: destiny})) 
       return res.status(400).send({message: "Invalid reciver"});
 
 //    const userEmitter = await User.findOne({_id: emitter});
@@ -20,7 +22,8 @@ class MessageController {
 //  const userReciver = await User.findOne({_id: reciver});
     
     // O primeiro é o emissor, o segundo o receptor
-    const chat = await Chat.findOne({ users: {$all:[emitter, reciver] }  });
+
+    let chat = await Chat.findOne({ users: {$all:[emitter, destiny] }  });
     
     if(!chat) return res.status(400).send({message: "Chat not found"});
 
@@ -30,12 +33,12 @@ class MessageController {
     
     await chat.save();
 
-    const socket = findSocket(reciver);
+    const socket = findSocket(String(destiny));
 
     if(socket)
       socket.emit('new_message',`from ${emitter}`);
 
-    return res.json(chat);
+    return res.json(message);
   }
 
 }

@@ -5,8 +5,6 @@ import mongoose from 'mongoose'
 
 class ChatController {
   public async store(req: Request, res: Response){
-    //TODO
-    // checar se o chat já existe e retornar erro
     const {user_id} = req.body;
 
     const destiny = mongoose.Types.ObjectId(req.params.destiny);
@@ -32,10 +30,9 @@ class ChatController {
     const { user_id } = req.body;
 
     const destiny  = mongoose.Types.ObjectId(req.params.destiny);
-
-    console.log(destiny)
     
-    const chat = await Chat.find({ users: {$all:  [user_id, destiny] }});
+    const chat = await Chat.find({ users: {$all:  [user_id, destiny] }}).populate('messages');
+    
 
     return res.json(chat);
   }
