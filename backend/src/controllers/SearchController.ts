@@ -1,8 +1,8 @@
 import { Response, Request } from 'express';
 import { Company } from '../models/company';
 
-export class SearchController {
-  public static async index(req: Request, res: Response) {
+class SearchController {
+  public async index(req: Request, res: Response) {
     const { latitude, longitude, category } = req.query;
     let { page = 0, limit = 10 } = req.query;
     page = Number(page);
@@ -50,3 +50,5 @@ export class SearchController {
     return res.json(companiesArray);
   }
 }
+
+export default new SearchController();

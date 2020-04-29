@@ -1,10 +1,22 @@
-import mongoose from 'mongoose';
-import PointSchema from './util/point';
+import mongoose, {Document} from 'mongoose';
+import PointSchema, {IPointSchema} from './util/point';
 import mongoosePaginate from 'mongoose-paginate';
-const CompanyScheema: mongoose.Schema = new mongoose.Schema(
+
+export interface ICompanySchema extends Document{
+  name: String;
+  register: String;
+  description: String;
+  phoneNumber: String;
+  location: IPointSchema;
+  category: String;
+  schedule: [String];
+  thumbnail: String;
+}
+
+const CompanySchema: mongoose.Schema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    cnpj: { type: String, required: true },
+    register: { type: String, required: true },
     description: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     location: {
@@ -12,7 +24,7 @@ const CompanyScheema: mongoose.Schema = new mongoose.Schema(
       index: '2dsphere',
     },
     category: String,
-    schedule: String,
+    schedule: [String],
     thumbnail: String,
   },
   {
@@ -22,10 +34,10 @@ const CompanyScheema: mongoose.Schema = new mongoose.Schema(
   },
 );
 
-CompanyScheema.plugin(mongoosePaginate);
+CompanySchema.plugin(mongoosePaginate);
 
-CompanyScheema.virtual('thunbnail_url').get(function (this: { thumbnail: String }) {
+CompanySchema.virtual('thunbnail_url').get(function (this: { thumbnail: String }) {
   return `https://localhost:8000/files/${this.thumbnail}`;
 });
 
-export const Company = mongoose.model('Company', CompanyScheema);
+export const Company = mongoose.model<ICompanySchema>('Company', CompanySchema);
