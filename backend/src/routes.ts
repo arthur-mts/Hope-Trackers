@@ -40,4 +40,6 @@ router.post('/message/:destiny', MessageController.store);
 
 router.post('/events', EventController.store)
 
+router.delete('/events', EventController.remove);
+
 export default router;
