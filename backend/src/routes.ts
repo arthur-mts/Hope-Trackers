@@ -6,6 +6,8 @@ import upload from './config/upload';
 import { SessionConotrller } from './controllers/SessionController';
 import auth from './middlewares/auth';
 import FavoriteController from './controllers/FavoriteController';
+import ChatController from './controllers/ChatController';
+import MessageController from './controllers/MessageController';
 
 const router = express.Router();
 
@@ -26,5 +28,11 @@ router.post('/favorites', FavoriteController.store);
 router.get('/favorites', FavoriteController.index);
 
 router.delete('/favorites', FavoriteController.remove);
+
+router.post('/chat/:destiny', ChatController.store);
+
+router.get('/chat/:destiny', ChatController.index);
+
+router.post('/message', MessageController.store);
 
 export default router;

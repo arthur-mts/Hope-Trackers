@@ -4,7 +4,7 @@ import { cnpj as cnpjUtil , cpf as cpfUtil} from 'cpf-cnpj-validator';
 import fs, { PathLike } from 'fs';
 
 class CompanyController {
-  private  removeFile(filename: PathLike) {
+  private removeFile(filename: PathLike) {
     fs.unlink(filename, (err) => {
       if (err) {
         console.log(err);
