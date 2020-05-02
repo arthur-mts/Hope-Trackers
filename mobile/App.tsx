@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const App = () => {
+const App: React.FC = () => {
   const [currentLocation, setCurrentLocation] = useState<Region>({
     longitude: -6.966605,
     latitude: -35.7968537,
@@ -56,7 +56,6 @@ const App = () => {
   }, []);
 
   const handleRegionChange = (region: Region) => {
-    // setCurrentLocation(region);
     console.log({region});
   };
 
