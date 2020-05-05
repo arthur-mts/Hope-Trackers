@@ -38,7 +38,7 @@ class MessageController {
     if(socket)
       socket.emit('new_message',`from ${emitter}`);
 
-    return res.json(message);
+    return res.status(200).send();
   }
 
 }
