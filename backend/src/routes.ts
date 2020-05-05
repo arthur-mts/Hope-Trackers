@@ -16,7 +16,9 @@ router.post('/companies', upload.single('thumbnail'), CompanyController.store);
 
 router.post('/users', UserController.store);
 
-router.post('/sessions', SessionConotrller.store);
+router.post('/users/sessions', SessionConotrller.storeUser);
+
+router.post('/companies/sessions', SessionConotrller.storeCompany);
 
 router.get('/companies', SearchController.index);
 
@@ -26,20 +28,22 @@ router.use(auth);
 
 router.put('/users', UserController.update);
 
-router.post('/favorites', FavoriteController.store);
+router.post('/favorites/:id', FavoriteController.store);
 
 router.get('/favorites', FavoriteController.index);
 
-router.delete('/favorites', FavoriteController.remove);
+router.delete('/favorites/:id', FavoriteController.remove);
 
-router.post('/chat/:destiny', ChatController.store);
+router.post('/chats/:destiny', ChatController.store);
 
-router.get('/chat/:destiny', ChatController.index);
+router.get('/chats/:destiny', ChatController.index);
+
+router.get('/chats', ChatController.list);
 
 router.post('/message/:destiny', MessageController.store);
 
 router.post('/events', EventController.store)
 
-router.delete('/events', EventController.remove);
+router.delete('/events/:id', EventController.remove);
 
 export default router;

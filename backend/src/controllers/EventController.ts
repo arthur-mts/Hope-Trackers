@@ -9,9 +9,12 @@ class EventController{
   public async remove(req: Request, res: Response){
     const id = Types.ObjectId(req.params.id);
     
-    await Event.remove({_id: id});
+    const queryInfo = await Event.remove({_id: id});
 
-    return res.status(200);
+    if(!queryInfo.deletedCount)
+      return res.status(400).send();
+
+    return res.status(200).send();
   }
 
 
@@ -49,8 +52,6 @@ class EventController{
             },
           },
    });
-
-   console.log(events);
 
      return res.json(events);
   }
