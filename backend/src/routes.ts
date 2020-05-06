@@ -1,14 +1,15 @@
 import express from 'express';
+
 import UserController from './controllers/UserController';
 import CompanyController from './controllers/CompanyController';
-import  SearchController  from './controllers/SearchController';
 import upload from './config/upload';
-import  SessionConotrller  from './controllers/SessionController';
+import SessionConotrller from './controllers/SessionController';
 import auth from './middlewares/auth';
 import FavoriteController from './controllers/FavoriteController';
 import ChatController from './controllers/ChatController';
 import MessageController from './controllers/MessageController';
 import EventController from './controllers/EventController';
+import MarkController from './controllers/MarkController';
 
 const router = express.Router();
 
@@ -16,13 +17,13 @@ router.post('/companies', upload.single('thumbnail'), CompanyController.store);
 
 router.post('/users', UserController.store);
 
-router.post('/users/sessions', SessionConotrller.storeUser);
+router.post('/users/sessions', SessionConotrller.store);
 
-router.post('/companies/sessions', SessionConotrller.storeCompany);
-
-router.get('/companies', SearchController.index);
+router.get('/companies', CompanyController.index);
 
 router.get('/events', EventController.index);
+
+router.get('/marks', MarkController.index);
 
 router.use(auth);
 
