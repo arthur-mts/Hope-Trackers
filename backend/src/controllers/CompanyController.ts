@@ -1,63 +1,125 @@
 import { Request, Response } from 'express';
-import { Company } from '../models/company';
-import { cnpj as cnpjUtil , cpf as cpfUtil} from 'cpf-cnpj-validator';
-import fs, { PathLike } from 'fs';
+import { Mark } from '../models/mark';
 
 class CompanyController {
-  private removeFile(filename: PathLike) {
-    fs.unlink(filename, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('succes');
-      }
-    });
+  // private removeFile(filename: PathLike) {
+  //   fs.unlink(filename, (err) => {
+  //     if (err) {
+  //       console.log(err);
+  //     } else {
+  //       console.log('succes');
+  //     }
+  //   });
+  // }
+
+  public async update(req: Request, res: Response){
+    const { filename } = req.file;
+    const { title, description, category } = req.body;
+    const { id } = req.params;
+
+    
+    const company = await Mark.findById(id);
+
+    if(!company) return res.status(404).send({message: 'Company not found'});
+
+
+    if(company.owner != req.user_id) 
+      return res.status(401).send();
+
+
+    company.description = description || company.description;
+
+    company.title= title || company.title;
+
+    company.category = category || company.category;
+
+    company.description = description || company.description;
+
+    company.thunbnail = filename || company.thunbnail;
+
+
   }
 
-  public  async store(req: Request, res: Response) {
+  public async store(req: Request, res: Response) {
     const { filename } = req.file;
-    const { name, cpf, cnpj, latitude, longitude, description, phoneNumber, category } = req.body;
-    let register: String;
+    const { name, latitude, longitude, description, category, user_id } = req.body;
 
-    if(cpf && cpfUtil.isValid(cpf, true)) 
-      register = cpf;
 
-    else if(cnpj && cnpjUtil.isValid(cnpj, true))
-      register = cnpj;
-  
-    else
-      return res.status(400).send({message: 'CPF ou CNPJ não encontrados'})
 
     const location = {
       type: 'Point',
       coordinates: [longitude, latitude],
     };
 
-    let company = await Company.findOne({
-      phoneNumber,
-    });
 
-    if (company) {
-      this.removeFile(req.file.path);
-      return res.status(400).send({ mesage: 'Company alredy exists' });
-    } else {
-      company = await Company.create({
-        name,
-        thumbnail: filename,
-        register,
-        description,
-        phoneNumber,
-        location,
-        category,
-      });
-      return res.json(company);
+    const company = await Mark.create({
+      name,
+      thumbnail: filename,
+      description,
+      location,
+      category,
+      type: "Company",
+      owner: user_id
+    });
+    return res.json(company);
+  }
+
+
+  public async index(req: Request, res: Response) {
+    const { latitude, longitude } = req.query;
+    const category = String(req.query.category);
+    let companiesArray;
+
+
+    const page = Number(String(req.query.page)) || 0;
+
+    const limit = Number(String(req.query.limit)) || 5;
+
+
+    if (category) {
+      companiesArray = await Mark.find(
+        {
+          type: 'Company',
+          category,
+          location: {
+            $near: {
+              $geometry: {
+                type: 'Point',
+                coordinates: [longitude, latitude],
+              },
+              $maxDistance: 5000,
+            },
+          },
+        }
+      ).skip(limit * page).
+        limit(limit);
     }
+    else {
+      companiesArray = await Mark.find(
+        {
+          type: 'Company',
+          location: {
+            $near: {
+              $geometry: {
+                type: 'Point',
+                coordinates: [longitude, latitude],
+              },
+              $maxDistance: 5000,
+            },
+          },
+        },
+      ).skip(limit * page).
+        limit(limit);
+    };
+
+    return res.json(companiesArray);
   }
-  public async update(req: Request, res: Response){
-    const {name, description } = req.body
-    // TODO
-  }
-  
+
+
+
 }
+
+
+
 
 export default new CompanyController()
