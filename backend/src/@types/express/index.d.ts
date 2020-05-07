@@ -1,7 +1,9 @@
-import {Schema} from "mongoose";
+import {Schema, Types} from "mongoose";
 
-declare namespace Express {
-  export interface Request {
-    user_id: Schema.Types.ObjectId;
+declare global{
+  namespace Express {
+    export interface Request {
+      user_id: string;
+    }
   }
 }
