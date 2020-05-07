@@ -3,12 +3,13 @@ import PointSchema, { IPointSchema } from './util/point';
 import mongoosePaginate from 'mongoose-paginate';
 
 export interface IMarkSchema extends Document {
-  title: String;
+  name: String;
   description: String;
   location: IPointSchema;
   category: String;
-  thunbnail: String;
+  thumbnail: String;
   owner: Schema.Types.ObjectId;
+  thumbnail_url: String;
 }
 
 export const MarkSchema: Schema = new Schema(
@@ -26,7 +27,7 @@ export const MarkSchema: Schema = new Schema(
     },
 
     // Company fields
-    thunbnail: {
+    thumbnail: {
       required: false,
       type: String
     },
@@ -42,7 +43,7 @@ export const MarkSchema: Schema = new Schema(
   }
 );
 
-MarkSchema.virtual('thunbnail_url').get(function (this: { thumbnail: String }) {
+MarkSchema.virtual('thumbnail_url').get(function (this: { thumbnail: String }) {
   return `https://localhost:8000/files/${this.thumbnail}`;
 });
 
