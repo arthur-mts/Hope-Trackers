@@ -13,11 +13,10 @@ import MarkController from './controllers/MarkController';
 
 const router = express.Router();
 
-router.post('/companies', upload.single('thumbnail'), CompanyController.store);
 
 router.post('/users', UserController.store);
 
-router.post('/users/sessions', SessionConotrller.store);
+router.post('/users/sessions/:id', SessionConotrller.store);
 
 router.get('/companies', CompanyController.index);
 
@@ -26,6 +25,10 @@ router.get('/events', EventController.index);
 router.get('/marks', MarkController.index);
 
 router.use(auth);
+
+router.post('/companies', upload.single('thumbnail'), CompanyController.store);
+
+router.put('/companies/:id', upload.single('thumbnail'), CompanyController.update);
 
 router.put('/users', UserController.update);
 
