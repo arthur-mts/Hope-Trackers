@@ -5,8 +5,8 @@ import secret from '../config/auth';
 
 class SessionConotrller {
   public async store(req: Request, res: Response) {
-    const { phoneNumber } = req.body;
-    const user = await User.findOne({ phoneNumber: phoneNumber });
+    const { id } = req.params;
+    const user = await User.findById(id);
     if (!user) return res.status(404).send({ messaege: 'User not found' });
     const { _id } = user;
     const token = jwt.sign({ _id }, secret);
