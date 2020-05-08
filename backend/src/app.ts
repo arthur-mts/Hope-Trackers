@@ -12,20 +12,19 @@ class App {
   public app: Application;
   public server: Server;
   private io: io.Server;
-  private ioPort = process.env.IO_PORT;
-  private expressPort = process.env.HTTP_PORT;
-  private mongoUrl = process.env.MONGO_URL!;
 
   constructor() {
     this.app = express();
     this.setConfig();
+    console.log(process.env);
+
     this.setMongoConfig();
     // Set Socket
     this.server = createServer(this.app);
     this.io = io(this.server);
     this.setSocket();
     this.setRoutes();
-    this.app.listen(this.expressPort);
+    this.app.listen(process.env.HTTP_PORT);
   }
 
   private setRoutes() {
@@ -34,7 +33,7 @@ class App {
 
   private setMongoConfig() {
     mongoose.Promise = global.Promise;
-    mongoose.connect(this.mongoUrl, {
+    mongoose.connect(process.env.MONGO_URL!, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -47,7 +46,7 @@ class App {
   }
   
   private setSocket(){
-    this.server.listen(this.ioPort, ()=>{
+    this.server.listen(process.env.IO_PORT, ()=>{
       console.log('Server on!');
     })
   }
