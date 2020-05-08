@@ -12,8 +12,9 @@ class App {
   public app: Application;
   public server: Server;
   private io: io.Server;
-  private port = process.env.PORT;
-
+  private ioPort = process.env.IO_PORT;
+  private expressPort = process.env.HTTP_PORT;
+  private mongoUrl = process.env.MONGO_URL!;
 
   constructor() {
     this.app = express();
@@ -24,7 +25,7 @@ class App {
     this.io = io(this.server);
     this.setSocket();
     this.setRoutes();
-    this.app.listen(8080);
+    this.app.listen(this.expressPort);
   }
 
   private setRoutes() {
@@ -33,7 +34,7 @@ class App {
 
   private setMongoConfig() {
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost:27017/HopeTrackers', {
+    mongoose.connect(this.mongoUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -46,7 +47,7 @@ class App {
   }
   
   private setSocket(){
-    this.server.listen(this.port, ()=>{
+    this.server.listen(this.ioPort, ()=>{
       console.log('Server on!');
     })
   }
