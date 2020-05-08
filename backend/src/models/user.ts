@@ -6,7 +6,7 @@ export interface IUserSchema extends Document {
   register: String;
   favorites: [Schema.Types.ObjectId];
   chats: [Types.ObjectId];
-  marks:[Types.ObjectId];
+  marks: [Types.ObjectId];
 }
 
 export const UserSchema: Schema = new Schema({
@@ -23,14 +23,14 @@ export const UserSchema: Schema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: 'Chat',
-    }
+    },
   ],
   marks: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Mark'
-    }
-  ]
+      ref: 'Mark',
+    },
+  ],
 });
 
 export const User = model<IUserSchema>('User', UserSchema);

@@ -11,8 +11,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   const [, token] = authHeader.split(' ');
   try {
     const decoded: any = jwt.verify(token, secret).valueOf();
-    
-    req.user_id =  Types.ObjectId(decoded._id);
+
+    req.user_id = Types.ObjectId(decoded._id);
 
     return next();
   } catch (err) {

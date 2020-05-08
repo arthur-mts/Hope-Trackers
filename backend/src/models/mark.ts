@@ -18,29 +18,29 @@ export const MarkSchema: Schema = new Schema(
     description: String,
     type: {
       type: String,
-      enum: ["Company", "Event"]
+      enum: ['Company', 'Event'],
     },
     owner: { type: Schema.Types.ObjectId, ref: 'User' },
     location: {
       type: PointSchema,
-      index: '2dsphere'
+      index: '2dsphere',
     },
 
     // Company fields
     thumbnail: {
       required: false,
-      type: String
+      type: String,
     },
     category: {
       required: false,
-      type: String
+      type: String,
     },
   },
   {
     toJSON: {
-      virtuals: true
-    }
-  }
+      virtuals: true,
+    },
+  },
 );
 
 MarkSchema.virtual('thumbnail_url').get(function (this: { thumbnail: String }) {
@@ -48,6 +48,5 @@ MarkSchema.virtual('thumbnail_url').get(function (this: { thumbnail: String }) {
 });
 
 MarkSchema.plugin(mongoosePaginate);
-
 
 export const Mark = model<IMarkSchema>('Mark', MarkSchema);

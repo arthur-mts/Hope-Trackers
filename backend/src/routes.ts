@@ -47,7 +47,7 @@ router.get('/chats', ChatController.list);
 
 router.post('/message/:destiny', MessageController.store);
 
-router.post('/events', EventController.store)
+router.post('/events', EventController.store);
 
 router.delete('/events/:id', EventController.remove);
 
