@@ -1,6 +1,7 @@
 import { Schema, model, Document, Types } from 'mongoose';
 import PointSchema, { IPointSchema } from './util/point';
 import mongoosePaginate from 'mongoose-paginate';
+import App from '../app';
 
 export interface IMarkSchema extends Document {
   name: String;
@@ -44,7 +45,7 @@ export const MarkSchema: Schema = new Schema(
 );
 
 MarkSchema.virtual('thumbnail_url').get(function (this: { thumbnail: String }) {
-  return `https://localhost:8000/files/${this.thumbnail}`;
+  return `https://${process.env.URL}:${process.env.HTTP_PORT}/files/${this.thumbnail}`;
 });
 
 MarkSchema.plugin(mongoosePaginate);

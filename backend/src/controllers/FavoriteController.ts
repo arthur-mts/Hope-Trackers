@@ -6,7 +6,7 @@ import { Mark } from '../models/mark';
 class FavoriteController {
   public async store(req: Request, res: Response) {
     const id: any = req.params.id;
-    const { user_id } = req.body;
+    const { user_id } = req;
 
 
     const company = await Mark.findOne({ _id: id });
@@ -21,14 +21,14 @@ class FavoriteController {
   }
 
   public async index(req: Request, res: Response) {
-    const _id = req.body.user_id;
-    const user = await User.findOne({ _id }).populate('favorites');
+    const {user_id} = req;
+    const user = await User.findOne({ _id: user_id }).populate('favorites');
     return res.json(user?.favorites);
   }
 
 
   public async remove(req: Request, res: Response) {
-    const { user_id } = req.body;
+    const { user_id } = req;
     const companyId: any = req.params.id;
 
     const user = await User.findOne({ _id: user_id })
