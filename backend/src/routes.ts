@@ -13,10 +13,11 @@ import MarkController from './controllers/MarkController';
 
 const router = express.Router();
 
-
 router.post('/users', UserController.store);
 
 router.post('/users/sessions/:id', SessionConotrller.store);
+
+router.get('/users/:id', UserController.index);
 
 router.get('/companies', CompanyController.index);
 
