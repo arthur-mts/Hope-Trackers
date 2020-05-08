@@ -1,39 +1,36 @@
-import mongoose, {Document} from 'mongoose';
-import {ICompanySchema }from './company';
-import {IChat} from './chat';
-import {IEventSchema} from './event';
+import { Document, Schema, model, Types } from 'mongoose';
 
 export interface IUserSchema extends Document {
   name: String;
   phoneNumber: String;
-  cpf: String;
-  favorites: [ICompanySchema];
-  chats: [IChat];
-  events: [IEventSchema];
+  register: String;
+  favorites: [Schema.Types.ObjectId];
+  chats: [Types.ObjectId];
+  marks:[Types.ObjectId];
 }
 
-export const UserSchema: mongoose.Schema = new mongoose.Schema({
+export const UserSchema: Schema = new Schema({
   name: String,
   phoneNumber: String,
-  cpf: String,
-  events: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Event',
-    }
-  ],
+  register: String,
   favorites: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Company',
     },
   ],
   chats: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Chat',
+    }
+  ],
+  marks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Mark'
     }
   ]
 });
 
-export const User = mongoose.model<IUserSchema>('User', UserSchema);
+export const User = model<IUserSchema>('User', UserSchema);

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import secret from '../config/auth';
+import { Types } from 'mongoose';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
@@ -10,9 +11,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   const [, token] = authHeader.split(' ');
   try {
     const decoded: any = jwt.verify(token, secret).valueOf();
-
-
-    req.body.user_id = decoded._id;
+    
+    req.user_id =  Types.ObjectId(decoded._id);
 
     return next();
   } catch (err) {

@@ -1,63 +1,135 @@
 import { Request, Response } from 'express';
-import { Company } from '../models/company';
-import { cnpj as cnpjUtil , cpf as cpfUtil} from 'cpf-cnpj-validator';
-import fs, { PathLike } from 'fs';
+import { Mark } from '../models/mark';
+import { removeFile } from '../config/upload';
 
 class CompanyController {
-  private removeFile(filename: PathLike) {
-    fs.unlink(filename, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('succes');
-      }
-    });
+  
+  public async update(req: Request, res: Response){
+    let filename = null;
+    if(req.file) filename = req.file.filename;
+    const { name, description, category } = req.body;
+    const { id } = req.params;
+
+    const company = await Mark.findById(id);
+
+
+    if(!company) return res.status(404).send({message: 'Company not found'});
+
+
+    if(company.owner != req.user_id)
+      return res.status(401).send();
+
+
+    company.description = description || company.description;
+
+    company.name= name || company.name;
+
+    company.category = category || company.category;
+
+    company.description = description || company.description;
+
+    if(filename){
+      removeFile(`uploads/${company.thumbnail}`);
+      company.thumbnail = filename || company.thumbnail;
+    }
+
+    await company.save();
+
+    return res.status(200).send();
   }
 
-  public  async store(req: Request, res: Response) {
+  public async store(req: Request, res: Response) {
     const { filename } = req.file;
-    const { name, cpf, cnpj, latitude, longitude, description, phoneNumber, category } = req.body;
-    let register: String;
-
-    if(cpf && cpfUtil.isValid(cpf, true)) 
-      register = cpf;
-
-    else if(cnpj && cnpjUtil.isValid(cnpj, true))
-      register = cnpj;
-  
-    else
-      return res.status(400).send({message: 'CPF ou CNPJ não encontrados'})
+    const { name, latitude, longitude, description, category} = req.body;
 
     const location = {
       type: 'Point',
       coordinates: [longitude, latitude],
     };
 
-    let company = await Company.findOne({
-      phoneNumber,
+
+    const company = await Mark.create({
+      name,
+      thumbnail: filename,
+      description,
+      location,
+      category,
+      type: "Company",
+      owner: req.user_id
     });
 
-    if (company) {
-      this.removeFile(req.file.path);
-      return res.status(400).send({ mesage: 'Company alredy exists' });
-    } else {
-      company = await Company.create({
-        name,
-        thumbnail: filename,
-        register,
-        description,
-        phoneNumber,
-        location,
-        category,
-      });
-      return res.json(company);
+    console.log(company.owner);
+    return res.json(company);
+  }
+
+
+  public async index(req: Request, res: Response) {
+    const { latitude, longitude, category } = req.query;
+    //    const category = String(req.query.category);
+    let companiesArray;
+
+
+    const page = Number(String(req.query.page)) || 0;
+
+    const limit = Number(String(req.query.limit)) || 5;
+
+    if (category) {
+      companiesArray = await Mark.find(
+        {
+          type: 'Company',
+          category: String(category),
+          location: {
+            $near: {
+              $geometry: {
+                type: 'Point',
+                coordinates: [longitude, latitude],
+              },
+              $maxDistance: 5000,
+            },
+          },
+        }
+      ).skip(limit * page).
+        limit(limit);
     }
+    else {
+      await Mark.find(
+        {
+          location: {
+            $near: {
+              $geometry: {
+                type: 'Point',
+                coordinates: [longitude, latitude],
+              },
+              $maxDistance: 5000,
+            },
+
+
+          }}
+      );
+      companiesArray = await Mark.find(
+        {
+          type: 'Company',
+          location: {
+            $near: {
+              $geometry: {
+                type: 'Point',
+                coordinates: [longitude, latitude],
+              },
+              $maxDistance: 5000,
+            },
+          },
+        },
+      ).limit(limit).skip(limit * page);
+    };
+
+    return res.json(companiesArray);
   }
-  public async update(req: Request, res: Response){
-    const {name, description } = req.body
-    // TODO
-  }
-  
+
+
+
 }
+
+
+
 
 export default new CompanyController()

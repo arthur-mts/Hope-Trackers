@@ -1,13 +1,13 @@
-import mongoose from 'mongoose';
+import {Schema, Types, model, Document} from 'mongoose';
 
-export interface IMessage extends mongoose.Document{
+export interface IMessage extends Document{
   content: string;
-  owner: mongoose.Schema.Types.ObjectId;
+  owner: Types.ObjectId;
 }
 
-const MessageSchema = new mongoose.Schema({
+const MessageSchema = new Schema({
   content: String,
-  owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  owner: {type: Schema.Types.ObjectId, ref: 'User'},
 }, {timestamps: true});
 
-export default mongoose.model<IMessage>('Message', MessageSchema);
+export default model<IMessage>('Message', MessageSchema);
