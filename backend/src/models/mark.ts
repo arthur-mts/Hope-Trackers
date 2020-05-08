@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 import PointSchema, { IPointSchema } from './util/point';
 import mongoosePaginate from 'mongoose-paginate';
 
@@ -8,7 +8,7 @@ export interface IMarkSchema extends Document {
   location: IPointSchema;
   category: String;
   thumbnail: String;
-  owner: Schema.Types.ObjectId;
+  owner: Types.ObjectId;
   thumbnail_url: String;
 }
 

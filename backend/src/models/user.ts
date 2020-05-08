@@ -1,14 +1,12 @@
-import { Document, Schema, model } from 'mongoose';
-import { IChat } from './chat';
-import { IMarkSchema } from './mark';
+import { Document, Schema, model, Types } from 'mongoose';
 
 export interface IUserSchema extends Document {
   name: String;
   phoneNumber: String;
   register: String;
-  favorites: [IMarkSchema];
-  chats: [IChat];
-  marks: [IMarkSchema]
+  favorites: [Schema.Types.ObjectId];
+  chats: [Types.ObjectId];
+  marks:[Types.ObjectId];
 }
 
 export const UserSchema: Schema = new Schema({
