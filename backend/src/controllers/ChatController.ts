@@ -1,49 +1,46 @@
 import { Request, Response } from "express";
 import Chat from '../models/chat';
 import { User } from "../models/user";
-import mongoose from 'mongoose'
+import {Types} from 'mongoose'
 
 class ChatController {
   public async store(req: Request, res: Response) {
-    const { user_id } = req.body;
+    
+    const destiny = Types.ObjectId(req.params.destiny);
 
-    const destiny = mongoose.Types.ObjectId(req.params.destiny);
-
-    let chat = await Chat.findOne({ users: { $all: [user_id, destiny] } });
+    let chat = await Chat.findOne({ users: { $all: [req.user_id, destiny] } });
 
     if (chat) return res.status(400).send({ message: 'Chat alredy  exists' });
 
-    chat = await Chat.create({ users: [user_id, destiny] });
+    chat = await Chat.create({ users: [req.user_id, destiny] });
 
-    // chat.users.push(user_id, destiny);
+    await User.updateOne({ _id: destiny }, { $push: { chats: chat._id } });
 
-    //  await chat.save();
-
-    await User.updateOne({ _id: destiny }, { $push: { chats: chat } });
-
-    await User.updateOne({ _id: user_id }, { $push: { chats: chat } });
+    await User.updateOne({ _id: req.user_id }, { $push: { chats: chat._id } });
 
     return res.json(chat);
   }
 
   public async index(req: Request, res: Response) {
-    const { user_id } = req.body;
 
-    const destiny = mongoose.Types.ObjectId(req.params.destiny);
+    const destiny = Types.ObjectId(req.params.destiny);
 
-    const chat = await Chat.find({ users: { $all: [user_id, destiny] } }).populate('messages');
+    const chat = await Chat.findOne({ users: { $all: [req.user_id, destiny] } }).populate('messages');
 
+    if(!chat) return res.status(400).send({message: 'Chat not exists'});
     return res.json(chat);
   }
 
   public async list(req: Request, res: Response) {
-    const { user_id } = req.body;
+    const id = req.user_id;
 
-    let chats = await Chat.find({ users: user_id }).populate('messages');
+    let chats = await Chat.find({ users: id }).populate('messages');
+
+    
 
     chats = await Promise.all(chats.map(async (chat) => {
       const reciverId = chat.users.filter((item, ) => {
-        return item != user_id;
+        return item != id;
       })[0];
 
       const reciver: any = await User.findById(reciverId);

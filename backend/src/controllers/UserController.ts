@@ -3,6 +3,17 @@ import { User } from '../models/user';
 import { cpf as cpfUtil, cnpj as cnpjUtil } from 'cpf-cnpj-validator';
 
 export default class UserController {
+
+  public static async index(req: Request, res: Response){
+    const {id} = req.params;
+    const user = await User.findById(id);
+
+    if(!user) return res.status(404).send({message: 'User not found'});
+
+    return res.json(user);
+
+  }
+
   public static async store(req: Request, res: Response) {
     const { phoneNumber, name, cpf, cnpj } = req.body;
     let register;
@@ -35,12 +46,9 @@ export default class UserController {
 
   public static async update(req: Request, res: Response) {
     const { name } = req.body;
-    const _id = req.body.user_id;
-    console.log(_id);
 
-    const user = await User.findOneAndUpdate({ _id }, { name: name });
+    await User.updateOne({_id: req.user_id}, {name});
 
-    if (user) return res.json(await User.findOne({ _id }));
-    else return res.status(404).send({ message: 'User not found' });
+    return res.json(await User.findById(req.user_id));
   }
 }

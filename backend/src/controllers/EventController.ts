@@ -9,7 +9,9 @@ class EventController {
   public async remove(req: Request, res: Response) {
     const id = Types.ObjectId(req.params.id);
 
-    const queryInfo = await Mark.remove({ _id: id });
+    const owner = req.user_id;
+
+    const queryInfo = await Mark.remove({ _id: id , owner});
 
     if (!queryInfo.deletedCount)
       return res.status(400).send();
@@ -20,17 +22,18 @@ class EventController {
 
 
   public async store(req: Request, res: Response) {
-    const { user_id, name, description, latitude, longitude } = req.body;
+    const { name, description, latitude, longitude } = req.body;
 
 
     const location = { type: 'Point', coordinates: [longitude, latitude] };
 
-    const event = await Mark.create({ name, description, location, owner: user_id, type: "Event" });
+    const event = await Mark.create({ name, description, location, owner: req.user_id, type: "Event" });
 
-    await User.findOneAndUpdate({ _id: user_id }, { $push: { marks: event._id } })
+    await User.updateOne({ _id: req.user_id }, { $push: { marks: event._id } })
+  
+    const returnEvent = await Mark.findById(event._id).select(['_id', 'description', 'location', 'owner', 'type', 'name']);
 
-
-    return res.json(event);
+    return res.json(returnEvent);
   }
 
 

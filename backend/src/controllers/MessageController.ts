@@ -8,19 +8,14 @@ import {findSocket} from '../services/UserOnlineService'
 class MessageController {
 
   public async store(req: Request, res: Response){
-    const emitter = req.body.user_id;
+    const emitter = req.user_id;
     const destiny = mongoose.Types.ObjectId(req.params.destiny);
-
     const {content} = req.body;
-    console.log(destiny)
+
     
     if(!await User.findOne({_id: destiny})) 
       return res.status(400).send({message: "Invalid reciver"});
 
-//    const userEmitter = await User.findOne({_id: emitter});
-
-//  const userReciver = await User.findOne({_id: reciver});
-    
     // O primeiro é o emissor, o segundo o receptor
 
     let chat = await Chat.findOne({ users: {$all:[emitter, destiny] }  });
@@ -30,6 +25,8 @@ class MessageController {
     const message = await Message.create({content, owner: emitter});
 
     chat.messages.push(message._id);
+    
+    console.log(chat.messages);
     
     await chat.save();
 
