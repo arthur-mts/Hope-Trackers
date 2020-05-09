@@ -51,4 +51,9 @@ export default class UserController {
 
     return res.json(await User.findById(req.user_id));
   }
+
+  public static async remove(req: Request, res: Response) {
+    await User.remove({_id: req.user_id});
+    return res.status(200).send();
+  }
 }

@@ -16,7 +16,7 @@ class CompanyController {
     if(!company) return res.status(404).send({message: 'Company not found'});
 
 
-    if(company.owner != req.user_id)
+    if(! req.user_id.equals(company.owner))
       return res.status(401).send();
 
 
@@ -125,7 +125,14 @@ class CompanyController {
     return res.json(companiesArray);
   }
 
-
+  public async remove(req: Request, res: Response) {
+    const {id} = req.params;
+    const company = await Mark.findById(id);
+    if(! company?.owner.equals(req.user_id)) return res.status(400).send({message: 'Operation not permited'});
+    removeFile(`uploads/${company.thumbnail}`);
+    await company?.remove();
+    return res.send();
+  }
 
 }
 
