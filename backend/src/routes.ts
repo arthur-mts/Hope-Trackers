@@ -29,9 +29,13 @@ router.use(auth);
 
 router.post('/companies', upload.single('thumbnail'), CompanyController.store);
 
+router.delete('/companies/:id', CompanyController.remove);
+
 router.put('/companies/:id', upload.single('thumbnail'), CompanyController.update);
 
 router.put('/users', UserController.update);
+
+router.delete('/users', UserController.remove);
 
 router.post('/favorites/:id', FavoriteController.store);
 
@@ -50,5 +54,7 @@ router.post('/message/:destiny', MessageController.store);
 router.post('/events', EventController.store)
 
 router.delete('/events/:id', EventController.remove);
+
+router.put('/events/:id', EventController.update);
 
 export default router;

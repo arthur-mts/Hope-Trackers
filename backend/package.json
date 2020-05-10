@@ -19,9 +19,8 @@
         "yup": "^0.28.4"
     },
     "scripts": {
-        "start": "node build/index.js",
         "build": "tsc --outDir build",
-        "dev": "nodemon --watch 'src/' --exec 'ts-node' src/app.ts"
+        "start": "nodemon --watch 'src/' --exec 'ts-node' src/app.ts"
     },
     "devDependencies": {
         "@types/dotenv": "^8.2.0",

@@ -45,7 +45,7 @@ export const MarkSchema: Schema = new Schema(
 );
 
 MarkSchema.virtual('thumbnail_url').get(function (this: { thumbnail: String }) {
-  return `https://${process.env.URL}:${process.env.HTTP_PORT}/files/${this.thumbnail}`;
+  return `https://${process.env.IP}:${process.env.HTTP_PORT}/files/${this.thumbnail}`;
 });
 
 MarkSchema.plugin(mongoosePaginate);

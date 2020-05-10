@@ -24,7 +24,7 @@ class App {
     this.io = io(this.server);
     this.setSocket();
     this.setRoutes();
-    this.app.listen(process.env.HTTP_PORT);
+    this.app.listen(String(process.env.HTTP_PORT));
   }
 
   private setRoutes() {
@@ -33,7 +33,7 @@ class App {
 
   private setMongoConfig() {
     mongoose.Promise = global.Promise;
-    mongoose.connect(process.env.MONGO_URL!, {
+    mongoose.connect(`mongodb://localhost:${process.env.MONGO_PORT}/${process.env.DATABASE_NAME}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -46,7 +46,7 @@ class App {
   }
   
   private setSocket(){
-    this.server.listen(process.env.IO_PORT, ()=>{
+    this.server.listen(String(process.env.IO_PORT), ()=>{
       console.log('Server on!');
     })
   }

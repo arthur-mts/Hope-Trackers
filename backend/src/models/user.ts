@@ -16,7 +16,7 @@ export const UserSchema: Schema = new Schema({
   favorites: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Company',
+      ref: 'Mark',
     },
   ],
   chats: [

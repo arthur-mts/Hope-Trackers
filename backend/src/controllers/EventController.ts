@@ -63,6 +63,22 @@ class EventController {
     return res.json(events);
   }
 
+  public async update(req: Request, res: Response) {
+    const {id} = req.params;
+    
+    const {name, description} = req.body;
+
+    const event = await Mark.findById(id);
+    
+    if(! event?.owner.equals(req.user_id)) return res.status(400).send({message: 'Operation not permited'});
+
+    event.name = name || event.name;
+
+    event.description = description || event.description;
+
+    return res.json(await event.save());
+
+  }
 }
 
 export default new EventController();
