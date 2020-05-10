@@ -16,6 +16,8 @@ class App {
   constructor() {
     this.app = express();
     this.setConfig();
+    console.log(process.env);
+
     this.setMongoConfig();
     // Set Socket
     this.server = createServer(this.app);
