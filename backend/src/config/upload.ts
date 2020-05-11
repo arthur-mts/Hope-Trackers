@@ -1,6 +1,6 @@
 import multer from 'multer';
 import path from 'path';
-import {PathLike, unlink} from 'fs';
+import { PathLike, unlink } from 'fs';
 
 const storage = multer.diskStorage({
   destination: path.resolve(__dirname, '..', '..', 'uploads'),

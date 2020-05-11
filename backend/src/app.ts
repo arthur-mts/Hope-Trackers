@@ -4,9 +4,9 @@ import router from './routes';
 import path from 'path';
 import dotenv from 'dotenv';
 import io from 'socket.io';
-import {createServer, Server} from 'http';
+import { createServer, Server } from 'http';
 
-import {connectSocket, disconnectSocket, ISocket} from './services/UserOnlineService';
+import { connectSocket, disconnectSocket, ISocket } from './services/UserOnlineService';
 
 class App {
   public app: Application;
@@ -44,24 +44,22 @@ class App {
     this.app.use(express.json());
     this.app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
   }
-  
-  private setSocket(){
-    this.server.listen(String(process.env.IO_PORT), ()=>{
+
+  private setSocket() {
+    this.server.listen(String(process.env.IO_PORT), () => {
       console.log('Server on!');
-    })
+    });
   }
 
-  private listen(){
+  private listen() {
     this.io.on('connection', (socket: ISocket) => {
-      connectSocket(socket.id ,socket)      
-    })
+      connectSocket(socket.id, socket);
+    });
 
-    this.io.on('disconnect',(socket: ISocket)=>{
+    this.io.on('disconnect', (socket: ISocket) => {
       disconnectSocket(socket.id);
-    })
+    });
   }
-
-
 }
 
 export default new App().app;

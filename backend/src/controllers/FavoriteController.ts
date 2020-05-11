@@ -15,7 +15,6 @@ class FavoriteController {
 
     const user = await User.findById(user_id);
 
-
     return res.json(user?.favorites);
   }
 
@@ -25,18 +24,15 @@ class FavoriteController {
     return res.json(user?.favorites);
   }
 
-
   public async remove(req: Request, res: Response) {
     const { user_id } = req;
     const companyId: any = req.params.id;
 
-    const user = await User.findOne({ _id: user_id })
+    const user = await User.findOne({ _id: user_id });
 
     const queryInfo = await user?.update({ $pull: { favorites: companyId } });
 
-    if (!queryInfo.nModified)
-      return res.status(400).send({ message: "Company not found" });
-
+    if (!queryInfo.nModified) return res.status(400).send({ message: 'Company not found' });
 
     return res.status(200).send();
   }

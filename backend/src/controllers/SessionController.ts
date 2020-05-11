@@ -12,7 +12,6 @@ class SessionConotrller {
     const token = jwt.sign({ _id }, secret);
     return res.json({ user, token });
   }
-
 }
 
 export default new SessionConotrller();

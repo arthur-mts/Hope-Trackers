@@ -1,5 +1,4 @@
 import express from 'express';
-
 import UserController from './controllers/UserController';
 import CompanyController from './controllers/CompanyController';
 import upload from './config/upload';
@@ -51,7 +50,7 @@ router.get('/chats', ChatController.list);
 
 router.post('/message/:destiny', MessageController.store);
 
-router.post('/events', EventController.store)
+router.post('/events', EventController.store);
 
 router.delete('/events/:id', EventController.remove);
 

@@ -1,11 +1,10 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 import Chat from '../models/chat';
-import { User } from "../models/user";
-import {Types} from 'mongoose'
+import { User } from '../models/user';
+import { Types } from 'mongoose';
 
 class ChatController {
   public async store(req: Request, res: Response) {
-    
     const destiny = Types.ObjectId(req.params.destiny);
 
     let chat = await Chat.findOne({ users: { $all: [req.user_id, destiny] } });
@@ -22,12 +21,11 @@ class ChatController {
   }
 
   public async index(req: Request, res: Response) {
-
     const destiny = Types.ObjectId(req.params.destiny);
 
     const chat = await Chat.findOne({ users: { $all: [req.user_id, destiny] } }).populate('messages');
 
-    if(!chat) return res.status(400).send({message: 'Chat not exists'});
+    if (!chat) return res.status(400).send({ message: 'Chat not exists' });
     return res.json(chat);
   }
 
@@ -36,19 +34,18 @@ class ChatController {
 
     let chats = await Chat.find({ users: id }).populate('messages');
 
-    
+    chats = await Promise.all(
+      chats.map(async (chat) => {
+        const reciverId = chat.users.filter((item) => {
+          return item != id;
+        })[0];
 
-    chats = await Promise.all(chats.map(async (chat) => {
-      const reciverId = chat.users.filter((item, ) => {
-        return item != id;
-      })[0];
+        const reciver: any = await User.findById(reciverId);
 
-      const reciver: any = await User.findById(reciverId);
-
-      chat.users[chat.users.indexOf(reciverId)] = reciver;
-      return chat;
-
-    }));
+        chat.users[chat.users.indexOf(reciverId)] = reciver;
+        return chat;
+      }),
+    );
 
     return res.json(chats);
   }
