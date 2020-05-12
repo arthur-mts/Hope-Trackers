@@ -24,6 +24,7 @@ class App {
     this.io = io(this.server);
     this.setSocket();
     this.setRoutes();
+    this.listen();
     this.app.listen(String(process.env.HTTP_PORT));
   }
 

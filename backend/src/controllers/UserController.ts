@@ -40,16 +40,25 @@ export default class UserController {
         email,
         hashPassword,
       });
-      return res.json(user);
+
+      return res.json(await User.findById(user._id).select('-hashPassword'));
     }
   }
 
   public static async update(req: Request, res: Response) {
-    const { name } = req.body;
+    const { name, email } = req.body;
 
-    await User.updateOne({ _id: req.user_id }, { name });
+    let user = await User.findById(req.user_id);
 
-    return res.json(await User.findById(req.user_id));
+    if(user && name)
+      user.name = name;
+
+    if(user && email)
+      user.email = email;
+
+    await user?.save();
+
+    return res.json(user);
   }
 
   public static async remove(req: Request, res: Response) {

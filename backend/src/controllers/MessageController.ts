@@ -4,6 +4,7 @@ import { User } from '../models/user';
 import Chat from '../models/chat';
 import Message from '../models/message';
 import { findSocket } from '../services/UserOnlineService';
+import { sendNotification } from '../services/OneSignalService';
 
 class MessageController {
   public async store(req: Request, res: Response) {
@@ -27,7 +28,10 @@ class MessageController {
 
     const socket = findSocket(String(destiny));
 
-    if (socket) socket.emit('new_message', `from ${emitter}`);
+    if (socket) socket.emit('new_message', message);
+    
+    else
+      sendNotification([String(destiny)], message.content , `Nova mensagem de ${emitter}`)
 
     return res.status(200).send();
   }

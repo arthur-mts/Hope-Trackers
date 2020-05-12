@@ -57,59 +57,11 @@ class CompanyController {
   }
 
   public async index(req: Request, res: Response) {
-    const { latitude, longitude, category } = req.query;
-    //    const category = String(req.query.category);
-    let companiesArray;
+    const {user_id} = req;
 
-    const page = Number(String(req.query.page)) || 0;
+    const companies = await Mark.find({owner: user_id, type: 'Company'});
 
-    const limit = Number(String(req.query.limit)) || 5;
-
-    if (category) {
-      companiesArray = await Mark.find({
-        type: 'Company',
-        category: String(category),
-        location: {
-          $near: {
-            $geometry: {
-              type: 'Point',
-              coordinates: [longitude, latitude],
-            },
-            $maxDistance: 5000,
-          },
-        },
-      })
-        .skip(limit * page)
-        .limit(limit);
-    } else {
-      await Mark.find({
-        location: {
-          $near: {
-            $geometry: {
-              type: 'Point',
-              coordinates: [longitude, latitude],
-            },
-            $maxDistance: 5000,
-          },
-        },
-      });
-      companiesArray = await Mark.find({
-        type: 'Company',
-        location: {
-          $near: {
-            $geometry: {
-              type: 'Point',
-              coordinates: [longitude, latitude],
-            },
-            $maxDistance: 5000,
-          },
-        },
-      })
-        .limit(limit)
-        .skip(limit * page);
-    }
-
-    return res.json(companiesArray);
+    return res.json(companies);
   }
 
   public async remove(req: Request, res: Response) {

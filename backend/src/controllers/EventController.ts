@@ -38,27 +38,15 @@ class EventController {
   }
 
   public async index(req: Request, res: Response) {
-    const { latitude, longitude } = req.query;
-    const page: number = Number(String(req.query.page)) || 0;
 
-    const limit: number = Number(String(req.query.limit)) || 5;
+    const { user_id } = req;
 
-    const events = await Mark.find({
-      type: 'Event',
-      location: {
-        $near: {
-          $geometry: {
-            type: 'Point',
-            coordinates: [longitude, latitude],
-          },
-          $maxDistance: 5000,
-        },
-      },
-    })
-      .skip(limit * page)
-      .limit(limit);
+    const events = await Mark.find({owner: user_id, type: 'Event'});
+
+    //const events = await User.findById(user_id).populate('marks');
 
     return res.json(events);
+
   }
 
   public async update(req: Request, res: Response) {
