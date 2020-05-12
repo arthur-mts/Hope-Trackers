@@ -10,7 +10,8 @@ class SessionConotrller {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).send({ messaege: 'User not found' });
 
-    if (! await checkPassword(user.hashPassword, password)) return res.status(400).send({message: 'invalid password'});
+    if (!(await checkPassword(user.hashPassword, password)))
+      return res.status(400).send({ message: 'invalid password' });
 
     const { _id } = user;
     const token = jwt.sign({ _id }, secret);

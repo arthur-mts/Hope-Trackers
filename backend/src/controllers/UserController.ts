@@ -6,7 +6,7 @@ import { hash } from 'bcrypt';
 export default class UserController {
   public static async index(req: Request, res: Response) {
     const { phoneNumber } = req.params;
-    const user = await User.findOne({phoneNumber});
+    const user = await User.findOne({ phoneNumber });
 
     if (!user) return res.status(404).send({ message: 'User not found' });
 
@@ -30,7 +30,6 @@ export default class UserController {
     });
 
     if (user) return res.status(400).send({ message: 'User alredy exists' });
-
     else {
       const hashPassword = await hash(password, 8);
 
@@ -39,7 +38,7 @@ export default class UserController {
         phoneNumber,
         register,
         email,
-        hashPassword
+        hashPassword,
       });
       return res.json(user);
     }

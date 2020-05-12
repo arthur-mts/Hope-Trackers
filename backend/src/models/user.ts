@@ -1,5 +1,5 @@
 import { Document, Schema, model, Types } from 'mongoose';
-import { compare } from 'bcrypt'
+import { compare } from 'bcrypt';
 
 export interface IUserSchema extends Document {
   name: string;
@@ -43,5 +43,5 @@ export const UserSchema: Schema = new Schema({
 export const User = model<IUserSchema>('User', UserSchema);
 
 export function checkPassword(hashPassword: string, password: string) {
-  return compare(password, hashPassword); 
+  return compare(password, hashPassword);
 }
