@@ -1,6 +1,6 @@
 import { Client } from 'onesignal-node';
 
-const client = new Client(process.env.ONE_SIGNALL_ID!, process.env.ONE_SIGNAL_KEY!);
+const client = new Client(process.env.ONE_SIGNAL_ID!, process.env.ONE_SIGNAL_KEY!);
 
 export async function sendNotification(playersId: [string], message: string, header: string) {
   await client.createNotification({

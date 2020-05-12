@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.post('/users', UserController.store);
 
-router.post('/users/sessions/:id', SessionConotrller.store);
+router.post('/users/sessions', SessionConotrller.store);
 
 router.get('/users/:phoneNumber', UserController.index);
 
