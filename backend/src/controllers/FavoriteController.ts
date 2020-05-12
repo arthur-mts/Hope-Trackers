@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import { User } from '../models/user';
 import { Mark } from '../models/mark';
-import { findSocket } from '../services/UserOnlineService';
+import { sendNotification } from '../services/OneSignalService';
 
 class FavoriteController {
   public async store(req: Request, res: Response) {
@@ -14,9 +14,11 @@ class FavoriteController {
 
     await User.updateOne({ _id: user_id }, { $addToSet: { favorites: id } }, { new: true });
 
-    const socket = findSocket(String(company.owner));
-
     const user = await User.findById(user_id);
+
+    const owner = await User.findById(company.owner);
+
+    await sendNotification(owner?.oneSignalKeys!, `${user?.name} favoritou ${company.name}`, `Hope Trackers`);
 
     return res.json(user?.favorites);
   }
