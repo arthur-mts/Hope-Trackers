@@ -20,7 +20,7 @@ class SessionConotrller {
       await user.update({$addToSet : {oneSignalKeys: signalId}});
     }
       
-    return res.json({user: await User.findById(_id).select('-hashPassword') , token });
+    return res.json({user: await User.findById(_id).select(['-hashPassword', '-favorites', '-marks','-oneSignalKeys','-chats']) , token });
   }
 }
 
