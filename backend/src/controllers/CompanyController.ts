@@ -6,7 +6,7 @@ class CompanyController {
   public async update(req: Request, res: Response) {
     let filename = null;
     if (req.file) filename = req.file.filename;
-    const { name, description, category } = req.body;
+    const { name, description, category, phoneNumber } = req.body;
     const { id } = req.params;
 
     const company = await Mark.findById(id);
@@ -20,6 +20,8 @@ class CompanyController {
     company.name = name || company.name;
 
     company.category = category || company.category;
+
+    company.phoneNumber = phoneNumber || company.phoneNumber;
 
     company.description = description || company.description;
 
@@ -35,7 +37,7 @@ class CompanyController {
 
   public async store(req: Request, res: Response) {
     const { filename } = req.file;
-    const { name, latitude, longitude, description, category } = req.body;
+    const { name, latitude, longitude, description, category , phoneNumber} = req.body;
 
     const location = {
       type: 'Point',
@@ -50,10 +52,10 @@ class CompanyController {
       category,
       type: 'Company',
       owner: req.user_id,
+      phoneNumber
     });
 
-    console.log(company.owner);
-    return res.json(company);
+    return res.json(await Mark.findById(company._id));
   }
 
   public async index(req: Request, res: Response) {

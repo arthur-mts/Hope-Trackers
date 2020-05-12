@@ -3,13 +3,14 @@ import PointSchema, { IPointSchema } from './util/point';
 import mongoosePaginate from 'mongoose-paginate';
 
 export interface IMarkSchema extends Document {
-  name: String;
-  description: String;
+  name: string;
+  description: string;
   location: IPointSchema;
-  category: String;
-  thumbnail: String;
+  category: string;
+  thumbnail: string;
   owner: Types.ObjectId;
-  thumbnail_url: String;
+  thumbnail_url: string;
+  phoneNumber: string;
 }
 
 export const MarkSchema: Schema = new Schema(
@@ -32,6 +33,10 @@ export const MarkSchema: Schema = new Schema(
       type: String,
     },
     category: {
+      required: false,
+      type: String,
+    },
+    phoneNumber: {
       required: false,
       type: String,
     },

@@ -40,7 +40,7 @@ export default class UserController {
         hashPassword,
       });
 
-      return res.json(await User.findById(user._id).select('-hashPassword'));
+      return res.json(await User.findById(user._id).select(['-hashPassword', '-chats', '-marks','-favorites',  '-oneSignalKeys']));
     }
   }
 

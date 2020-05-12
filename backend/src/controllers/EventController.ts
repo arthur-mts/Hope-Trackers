@@ -26,14 +26,12 @@ class EventController {
     await User.updateOne({ _id: req.user_id }, { $push: { marks: event._id } });
 
     const returnEvent = await Mark.findById(event._id).select([
-      '_id',
-      'description',
-      'location',
-      'owner',
-      'type',
-      'name',
+      '-thumbnail_url',
+      '-phoneNumber'
     ]);
+    
 
+    console.log(returnEvent);
     return res.json(returnEvent);
   }
 
