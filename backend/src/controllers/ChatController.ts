@@ -40,7 +40,11 @@ class ChatController {
           return item != id;
         })[0];
 
+        console.log(reciverId);
+
         const reciver: any = await User.findById(reciverId);
+        
+        console.log(reciver);
 
         chat.users[chat.users.indexOf(reciverId)] = reciver;
         return chat;

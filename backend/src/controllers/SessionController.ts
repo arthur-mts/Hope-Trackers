@@ -7,7 +7,7 @@ class SessionConotrller {
   public async store(req: Request, res: Response) {
     const { email, password, signalId } = req.body;
 
-    const user = await User.findOne({ email });
+    let user = await User.findOne({ email });
     if (!user) return res.status(404).send({ messaege: 'User not found' });
 
     if (!(await checkPassword(user.hashPassword, password)))
@@ -16,11 +16,11 @@ class SessionConotrller {
     const { _id } = user;
     const token = jwt.sign({ _id }, secret);
 
-    user.oneSignalKeys.push(signalId);
-
-    await user.save();
-
-    return res.json({ user, token });
+    if(signalId){
+      await user.update({$addToSet : {oneSignalKeys: signalId}});
+    }
+      
+    return res.json({user: await User.findById(_id).select('-hashPassword') , token });
   }
 }
 
