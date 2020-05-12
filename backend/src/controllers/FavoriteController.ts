@@ -18,7 +18,7 @@ class FavoriteController {
 
     const owner = await User.findById(company.owner);
 
-    await sendNotification(owner?.oneSignalKeys!, `${user?.name} favoritou ${company.name}`, `Hope Trackers`);
+    sendNotification(owner?.oneSignalKeys!, `${user?.name} favoritou ${company.name}`, `Hope Trackers`);
 
     return res.json(user?.favorites);
   }
