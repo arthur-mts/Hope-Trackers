@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models/user';
 import { cpf as cpfUtil, cnpj as cnpjUtil } from 'cpf-cnpj-validator';
+import { hash } from 'bcrypt';
 
 export default class UserController {
   public static async index(req: Request, res: Response) {
@@ -13,7 +14,7 @@ export default class UserController {
   }
 
   public static async store(req: Request, res: Response) {
-    const { phoneNumber, name, cpf, cnpj } = req.body;
+    const { phoneNumber, name, cpf, cnpj, email, password } = req.body;
     let register;
 
     if (cpf) {
@@ -29,11 +30,16 @@ export default class UserController {
     });
 
     if (user) return res.status(400).send({ message: 'User alredy exists' });
+
     else {
+      const hashPassword = await hash(password, 8);
+
       user = await User.create({
         name,
         phoneNumber,
         register,
+        email,
+        hashPassword
       });
       return res.json(user);
     }

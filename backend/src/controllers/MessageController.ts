@@ -13,8 +13,6 @@ class MessageController {
 
     if (!(await User.findOne({ _id: destiny }))) return res.status(400).send({ message: 'Invalid reciver' });
 
-    // O primeiro é o emissor, o segundo o receptor
-
     let chat = await Chat.findOne({ users: { $all: [emitter, destiny] } });
 
     if (!chat) return res.status(400).send({ message: 'Chat not found' });

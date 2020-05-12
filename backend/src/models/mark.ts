@@ -1,7 +1,6 @@
 import { Schema, model, Document, Types } from 'mongoose';
 import PointSchema, { IPointSchema } from './util/point';
 import mongoosePaginate from 'mongoose-paginate';
-import App from '../app';
 
 export interface IMarkSchema extends Document {
   name: String;

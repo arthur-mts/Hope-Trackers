@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import { User } from '../models/user';
 import { Mark } from '../models/mark';
+import { findSocket } from '../services/UserOnlineService';
 
 class FavoriteController {
   public async store(req: Request, res: Response) {
@@ -12,6 +13,8 @@ class FavoriteController {
     if (!company) return res.status(404).send({ message: 'Company not found' });
 
     await User.updateOne({ _id: user_id }, { $addToSet: { favorites: id } }, { new: true });
+
+    const socket = findSocket(String(company.owner));
 
     const user = await User.findById(user_id);
 
