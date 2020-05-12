@@ -16,7 +16,7 @@ router.post('/users', UserController.store);
 
 router.post('/users/sessions/:id', SessionConotrller.store);
 
-router.get('/users/:id', UserController.index);
+router.get('/users/:phoneNumber', UserController.index);
 
 router.get('/companies', CompanyController.index);
 

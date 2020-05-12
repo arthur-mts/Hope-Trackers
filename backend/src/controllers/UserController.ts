@@ -4,8 +4,8 @@ import { cpf as cpfUtil, cnpj as cnpjUtil } from 'cpf-cnpj-validator';
 
 export default class UserController {
   public static async index(req: Request, res: Response) {
-    const { id } = req.params;
-    const user = await User.findById(id);
+    const { phoneNumber } = req.params;
+    const user = await User.findOne({phoneNumber});
 
     if (!user) return res.status(404).send({ message: 'User not found' });
 
