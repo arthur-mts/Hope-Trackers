@@ -5,8 +5,8 @@ import { hash } from 'bcrypt';
 
 export default class UserController {
   public static async index(req: Request, res: Response) {
-    const { phoneNumber } = req.params;
-    const user = await User.findOne({ phoneNumber });
+    const { email } = req.params;
+    const user = await User.findOne({ email });
 
     if (!user) return res.status(404).send({ message: 'User not found' });
 
@@ -14,7 +14,7 @@ export default class UserController {
   }
 
   public static async store(req: Request, res: Response) {
-    const { phoneNumber, name, cpf, cnpj, email, password } = req.body;
+    const { name, cpf, cnpj, email, password } = req.body;
     let register;
 
     if (cpf) {
@@ -35,7 +35,6 @@ export default class UserController {
 
       user = await User.create({
         name,
-        phoneNumber,
         register,
         email,
         hashPassword,

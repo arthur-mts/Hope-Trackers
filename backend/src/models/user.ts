@@ -3,7 +3,6 @@ import { compare } from 'bcrypt';
 
 export interface IUserSchema extends Document {
   name: string;
-  phoneNumber: string;
   register: string;
   email: string;
   hashPassword: string;
@@ -15,7 +14,6 @@ export interface IUserSchema extends Document {
 
 export const UserSchema: Schema = new Schema({
   name: String,
-  phoneNumber: String,
   register: String,
   email: String,
   hashPassword: String,
