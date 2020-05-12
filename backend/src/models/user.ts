@@ -7,6 +7,7 @@ export interface IUserSchema extends Document {
   register: string;
   email: string;
   hashPassword: string;
+  oneSignalKeys: [string];
   favorites: [Schema.Types.ObjectId];
   chats: [Types.ObjectId];
   marks: [Types.ObjectId];
@@ -36,6 +37,7 @@ export const UserSchema: Schema = new Schema({
       ref: 'Mark',
     },
   ],
+  oneSignalKeys: [String],
 });
 
 export const User = model<IUserSchema>('User', UserSchema);

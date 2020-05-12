@@ -26,7 +26,7 @@ export default class UserController {
     }
 
     let user = await User.findOne({
-      register,
+      email,
     });
 
     if (user) return res.status(400).send({ message: 'User alredy exists' });
