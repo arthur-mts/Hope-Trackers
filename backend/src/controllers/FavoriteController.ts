@@ -14,13 +14,13 @@ class FavoriteController {
 
     await User.updateOne({ _id: user_id }, { $addToSet: { favorites: id } }, { new: true });
 
-    const user = await User.findById(user_id);
+    const user = await User.findById(user_id).select('name');
 
     const owner = await User.findById(company.owner);
 
     sendNotification(owner?.oneSignalKeys!, `${user?.name} favoritou ${company.name}`, `Hope Trackers`);
 
-    return res.json(user?.favorites);
+    return res.json(company);
   }
 
   public async index(req: Request, res: Response) {
