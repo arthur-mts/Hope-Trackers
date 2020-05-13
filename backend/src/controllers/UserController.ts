@@ -14,6 +14,7 @@ export default class UserController {
   }
 
   public static async store(req: Request, res: Response) {
+    const {filename} = req.file;
     const { name, cpf, cnpj, email, password } = req.body;
     let register;
 
@@ -38,6 +39,7 @@ export default class UserController {
         register,
         email,
         hashPassword,
+        thumbnail: filename,
       });
 
       return res.json(await User.findById(user._id).select(['-hashPassword', '-chats', '-marks','-favorites',  '-oneSignalKeys']));

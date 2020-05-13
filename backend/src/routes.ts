@@ -12,9 +12,9 @@ import SearchController from './controllers/SearchController';
 
 const router = express.Router();
 
-router.post('/users', UserController.store);
+router.post('/users', upload.single('thumbnail'), UserController.store);
 
-router.post('/users/sessions', SessionConotrller.store);
+router.post('/sessions', SessionConotrller.store);
 
 router.get('/users/:phoneNumber', UserController.index);
 
@@ -29,9 +29,6 @@ router.use(auth);
 router.get('/companies', CompanyController.index);
 
 router.get('/events', EventController.index);
-
-
-
 
 router.post('/companies', upload.single('thumbnail'), CompanyController.store);
 

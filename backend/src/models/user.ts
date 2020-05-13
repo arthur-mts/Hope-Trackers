@@ -1,5 +1,6 @@
 import { Document, Schema, model, Types } from 'mongoose';
 import { compare } from 'bcrypt';
+import {UserClient} from 'onesignal-node';
 
 export interface IUserSchema extends Document {
   name: string;
@@ -10,10 +11,13 @@ export interface IUserSchema extends Document {
   favorites: [Schema.Types.ObjectId];
   chats: [Types.ObjectId];
   marks: [Types.ObjectId];
+  thumbnail: string;
+  thumbnail_url: string;
 }
 
 export const UserSchema: Schema = new Schema({
   name: String,
+  thumbnail: String,
   register: String,
   email: String,
   hashPassword: String,
@@ -36,7 +40,18 @@ export const UserSchema: Schema = new Schema({
     },
   ],
   oneSignalKeys: [String],
-});
+},
+  {
+    toJSON: {
+      virtuals: true,
+    }
+  }
+);
+
+UserSchema.virtual('thumbnail_url').get(function(this: {thumbnail: String}){
+  return `http://${process.env.IP}:${process.env.HTTP_PORT}/files/${this.thumbnail}`;
+})
+
 
 export const User = model<IUserSchema>('User', UserSchema);
 
