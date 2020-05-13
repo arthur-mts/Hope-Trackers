@@ -42,7 +42,7 @@ class ChatController {
 
         console.log(reciverId);
 
-        const reciver: any = await User.findById(reciverId);
+        const reciver: any = await User.findById(reciverId).select(['name','email','thumbnail']);
         
         console.log(reciver);
 

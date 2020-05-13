@@ -12,13 +12,14 @@ class FavoriteController {
     const company = await Mark.findOne({ _id: id });
     if (!company) return res.status(404).send({ message: 'Company not found' });
 
-    await User.updateOne({ _id: user_id }, { $addToSet: { favorites: id } }, { new: true });
+    const queryUpdatedOne = await User.updateOne({ _id: user_id }, { $addToSet: { favorites: id } }, { new: true });
 
     const user = await User.findById(user_id).select('name');
 
     const owner = await User.findById(company.owner);
 
-    sendNotification(owner?.oneSignalKeys!, `${user?.name} favoritou ${company.name}`, `Hope Trackers`);
+    if(queryUpdatedOne?.modified)
+      sendNotification(owner?.oneSignalKeys!, `${user?.name} favoritou ${company.name}`, `Hope Trackers`);
 
     return res.json(company);
   }
