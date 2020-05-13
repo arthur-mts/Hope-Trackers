@@ -29,10 +29,6 @@ class SearchController {
   public async indexMark(req: Request, res: Response) {
     const { latitude, longitude } = req.query;
 
-    const page: number = Number(String(req.query.page)) || 0;
-
-    const limit: number = Number(String(req.query.limit)) || 5;
-
     const marks = await Mark.find({
       location: {
         $near: {
@@ -43,9 +39,7 @@ class SearchController {
           $maxDistance: 5000,
         },
       },
-    })
-      .skip(limit * page)
-      .limit(limit);
+    });
 
     return res.json(marks);
   }
@@ -56,9 +50,6 @@ class SearchController {
     //    const category = String(req.query.category);
     let companiesArray;
 
-    const page = Number(String(req.query.page)) || 0;
-
-    const limit = Number(String(req.query.limit)) || 5;
 
     if (category) {
       companiesArray = await Mark.find({
@@ -74,8 +65,6 @@ class SearchController {
           },
         },
       })
-        .skip(limit * page)
-        .limit(limit);
     } else {
       await Mark.find({
         location: {
@@ -100,8 +89,6 @@ class SearchController {
           },
         },
       })
-        .limit(limit)
-        .skip(limit * page);
     }
 
     return res.json(companiesArray);
