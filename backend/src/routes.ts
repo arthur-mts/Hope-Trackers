@@ -9,6 +9,7 @@ import ChatController from './controllers/ChatController';
 import MessageController from './controllers/MessageController';
 import EventController from './controllers/EventController';
 import SearchController from './controllers/SearchController';
+import SearchCompanyController from './controllers/SearchCompanyController';
 
 const router = express.Router();
 
@@ -23,6 +24,8 @@ router.get('/search/companies', SearchController.indexCompany);
 router.get('/search/events', SearchController.indexEvent);
 
 router.get('/search/marks', SearchController.indexMark);
+
+router.get('/search/companies/:filter', SearchCompanyController.index);
 
 router.use(auth);
 
