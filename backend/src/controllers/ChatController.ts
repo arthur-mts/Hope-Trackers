@@ -12,9 +12,13 @@ class ChatController {
 
     if (chat) return res.status(400).send({ message: 'Chat alredy  exists' });
 
+    const userDestiny = await User.findById(destiny);
+
+    if(!userDestiny) return res.status(400).send({message: 'User not exists'});
+
     chat = await Chat.create({ users: [req.user_id, destiny] });
 
-    await User.updateOne({ _id: destiny }, { $push: { chats: chat._id } });
+    await User.updateOne({ _id: destiny}, { $push: { chats: chat._id } });
 
     await User.updateOne({ _id: req.user_id }, { $push: { chats: chat._id } });
 
