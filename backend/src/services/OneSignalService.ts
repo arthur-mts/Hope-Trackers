@@ -1,6 +1,6 @@
 import { Client } from 'onesignal-node';
 
-const client = new Client('18fbfa97-eb80-4830-8602-ed4ad7fa2e6d', 'MzQ2NGY4OTItNDI4ZC00Nzk1LWI5ZjgtMDJhMjljNWNlZjQ5');
+const client = new Client(process.env.ONESIGNAL, process.env.ONESIGNALKEY);
 
 export async function sendNotification(playersId: [string], message: string, header: string) {
   console.log(client);
