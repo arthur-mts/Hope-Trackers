@@ -28,34 +28,30 @@ Realizando assim, uma ação positiva tanto no ponto de vista econômico, pela v
 
 ## :construction_worker: Time
 <table style="width:100%">
-
   <tr>
     <td align="center"><a href="http://github.com/arthur-mts"><img src="https://avatars1.githubusercontent.com/u/29128672?s=460&u=35713cf65a1aa46523da85dafc78ac42dba8f5d4&v=4" height="auto" width="120" style="border-radius:50%"></a>
 <h3>Arthur Mauricio</h3>
 <p>Desenvolvedor<br>Graduando em   
 Engenharia de Computação - IFPB</p></td>
 
-<td align="center"><a href="http://github.com/jarthursantos"><img src="https://avatars2.githubusercontent.com/u/54647381?s=460&u=62b7f59c18addb302613048812e6136f97731614&v=4" height="auto" width="120" style="border-radius:50%"></a>
+  <td align="center"><a href="http://github.com/jarthursantos"><img src="https://avatars2.githubusercontent.com/u/54647381?s=460&u=62b7f59c18addb302613048812e6136f97731614&v=4" height="auto" width="120" style="border-radius:50%"></a>
 <h3>Arthur Santos</h3>
 <p>Desenvolvedor<br>Técnico em Informática- IFPB</p></td>
 
-
-
-
-  </tr>
-  <tr>
   <td align="center"><a href="https://github.com/Brunalu28"><img src="https://avatars1.githubusercontent.com/u/44930475?s=460&u=3da35b4ad73aca9314586252a209e27fc0976ca9&v=4" height="auto" width="120" style="border-radius:50%"></a>
 <h3>Luiza Bruna</h3>
-<p>Desenvolvedora/Colaboradora<br>Técnico em Informática- IFPB</p></td>
-  <td align="center"><a href=""><img src="./assets/sara.jpeg" height="auto" width="120" style="border-radius:50%"></a>
+<p>Desenvolvedora/Colaboradora<br>Graduanda em   
+Engenharia de Computação - IFPB</p></td>
+    
+  <td align="center"><a href="https://github.com/sarayme"><img src="https://avatars.githubusercontent.com/u/56844578?v=4" height="auto" width="120" style="border-radius:50%"></a>   
 <h3>Sara Ayme</h3>
 <p>Desenvolvedora/Colaboradora<br>Graduanda em   
-Engenharia de Computação- IFPB</p></td>
-
-<td align="center"><a href=""><img src="./assets/victor.jpg" height="auto" width="120" style="border-radius:50%"></a>
+Engenharia de Computação - IFPB</p></td>
+    
+  <td align="center"><a href=""><img src="./assets/victor.jpg" height="auto" width="120" style="border-radius:50%"></a> 
 <h3>João Victor Moura</h3>
 <p>Colaborador<br>Graduando em   
-Farmacia- UEPB</p></td>
+Design - UFCG</p></td>
   </tr>
 </table>
 
